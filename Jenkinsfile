@@ -5,21 +5,21 @@ pipeline {
     stages {
         stage('clean') {
             steps {
-                bat "java -version"
-                bat "./mvnw clean"
+                sh "java -version"
+                sh "./mvnw clean"
             }
         }
         stage('backend tests') {
             steps {
                 //bat "./mvnw test"
-                bat "echo 'configurar para ejecutar los tests'"
+                sh "echo 'configurar para ejecutar los tests'"
             }
         }
         stage('Install - Master') {
             steps {
-                bat "./mvnw clean install site -DskipTests"
-                bat "./mvnw pmd:pmd"
-                bat "./mvnw pmd:cpd"
+                sh "./mvnw clean install site -DskipTests"
+                sh "./mvnw pmd:pmd"
+                sh "./mvnw pmd:cpd"
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
                 archiveArtifacts artifacts: '**/target/site/**'
             }
