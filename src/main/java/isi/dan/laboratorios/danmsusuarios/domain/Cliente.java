@@ -1,5 +1,6 @@
 package isi.dan.laboratorios.danmsusuarios.domain;
 
+import java.util.Date;
 import java.util.List;
 
 public class Cliente {
@@ -10,7 +11,8 @@ public class Cliente {
    private Double maxCuentaCorriente;
    private Boolean habilitadoOnline;
    private List<Obra> obras;
-    
+   private Usuario usuario;
+   private Date fechaBaja;
 
    public Integer getId() {
       return this.id;
@@ -70,6 +72,23 @@ public class Cliente {
 
    public void setObras(List<Obra> obras) {
       this.obras = obras;
+   }
+
+   public Usuario getUsuario() {
+      return this.usuario;
+   }
+
+   public void setUsuario(Usuario usuario) {
+      this.usuario = usuario;
+   }
+
+
+   public Date getFechaBaja() {
+      return this.fechaBaja;
+   }
+
+   public void setFechaBaja(Date fechaBaja) {
+      this.fechaBaja = fechaBaja;
    }
 
 }
