@@ -26,31 +26,33 @@ public class ClienteServiceImp implements ClienteService {
     ClienteRepository clienteRepository;
 
     @Override
-    public Cliente darAlta(Cliente cliente) throws RiesgoException{
-        
+    public Cliente darAlta(Cliente cliente) throws RiesgoException {
 
-        if (cliente.getHabilitadoOnline()) {
+        if (cliente.getHabilitadoOnline() != null && cliente.getHabilitadoOnline()) {
             Boolean situacionCrediticiaPositiva = riesgoService.reporteBCRAPositivo(cliente.getCuit());
 
             if (situacionCrediticiaPositiva) {
                 return clienteRepository.save(cliente);
-            }
-            throw new RiesgoException("BCRA");
+            } else
+                throw new RiesgoException("BCRA");
         } else {
-            clienteRepository.save(cliente);
+            return clienteRepository.save(cliente);
         }
-        return null;
     }
 
     @Override
     public void darBaja(Integer id) throws RecursoNoEncontradoException {
-        Cliente cliente = buscarPorId(id);
+        try {
+            Cliente cliente = clienteRepository.findById(id).get();
 
-        if (!pedidoService.pedidosDelCliente(cliente).isEmpty()) {
-            cliente.setFechaBaja(new Date());
-            clienteRepository.save(cliente);
-        } else {
-            clienteRepository.delete(cliente);
+            if (!pedidoService.pedidosDelCliente(cliente).isEmpty()) {
+                cliente.setFechaBaja(new Date());
+                clienteRepository.save(cliente);
+            } else {
+                clienteRepository.delete(cliente);
+            }
+        } catch (Exception e) {
+            throw new RecursoNoEncontradoException();
         }
     }
 
@@ -65,10 +67,10 @@ public class ClienteServiceImp implements ClienteService {
         clientes.removeIf(cliente -> cliente.getFechaBaja() != null);
 
         if (cuit != null) {
-            clientes.removeIf(cliente -> cliente.getCuit() != cuit);
+            clientes.removeIf(cliente -> !cuit.equals(cliente.getCuit()));
         }
         if (razon != null) {
-            clientes.removeIf(cliente -> cliente.getRazonSocial() != razon);
+            clientes.removeIf(cliente -> !razon.equals(cliente.getRazonSocial()));
         }
 
         return clientes;
