@@ -74,12 +74,12 @@ public class ClienteRest {
     @ApiResponses(value = { @ApiResponse(code = 200, message = "Actualizado correctamente"),
             @ApiResponse(code = 401, message = "No autorizado"), @ApiResponse(code = 403, message = "Prohibido"),
             @ApiResponse(code = 404, message = "El ID no existe") })
-    public ResponseEntity<Cliente> actualizar(@RequestBody Cliente nuevo, @PathVariable Integer id) {
-        nuevo.setId(id);
+    public ResponseEntity<Cliente> actualizar(@RequestBody Cliente actualizado, @PathVariable Integer id) {
+        actualizado.setId(id);
         try {
-            return ResponseEntity.ok(clienteService.actualizar(nuevo));
+            return ResponseEntity.ok(clienteService.actualizar(actualizado));
         } catch (RecursoNoEncontradoException e) {
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.notFound().build();
         }
     }
 
