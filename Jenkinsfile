@@ -17,8 +17,8 @@ pipeline {
         }
         stage('Analisis estatico') {
             steps {
-                bat "./mvnw site"
-                bat "./mvnw checkstyle:checkstyle pmd:
+                sh "./mvnw site"
+                sh "./mvnw checkstyle:checkstyle pmd:
                 pmd pmd:cpd findbugs:findbugs spotbugs:spotb
                 ugs"
             }
