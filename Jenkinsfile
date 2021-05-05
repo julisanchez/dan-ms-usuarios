@@ -21,7 +21,6 @@ pipeline {
                 sh "./mvnw checkstyle:checkstyle pmd:pmd pmd:cpd findbugs:findbugs spotbugs:spotbugs"
             }
         }
-    }
         stage('Install - Master') {
             steps {
                 sh "./mvnw clean install site -DskipTests"
@@ -66,4 +65,4 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5'))
     }
-
+}
