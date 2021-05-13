@@ -1,16 +1,32 @@
 package isi.dan.laboratorios.danmsusuarios.domain;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Cliente {
+   @Id
    private Integer id;
+   @GeneratedValue(strategy = GenerationType.AUTO)
    private String razonSocial;
    private String cuit;
    private String mail;
    private Double maxCuentaCorriente;
    private Boolean habilitadoOnline;
+   private Date fechaBaja;
+   @OneToMany(mappedBy = "cliente")
    private List<Obra> obras;
-    
+   @OneToOne
+   @JoinColumn(name = "USUARIO_ID")
+   private Usuario usuario;
 
    public Integer getId() {
       return this.id;
@@ -70,6 +86,22 @@ public class Cliente {
 
    public void setObras(List<Obra> obras) {
       this.obras = obras;
+   }
+
+   public Usuario getUsuario() {
+      return this.usuario;
+   }
+
+   public void setUsuario(Usuario usuario) {
+      this.usuario = usuario;
+   }
+
+   public Date getFechaBaja() {
+      return this.fechaBaja;
+   }
+
+   public void setFechaBaja(Date fechaBaja) {
+      this.fechaBaja = fechaBaja;
    }
 
 }
