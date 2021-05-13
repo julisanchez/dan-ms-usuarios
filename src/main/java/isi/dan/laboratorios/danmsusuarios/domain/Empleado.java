@@ -1,8 +1,20 @@
 package isi.dan.laboratorios.danmsusuarios.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Empleado {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO) 
     private Integer id;
     private String mail;
+    @OneToOne
+    @JoinColumn(name = "USUARIO_ID")
     private Usuario user;
 
 

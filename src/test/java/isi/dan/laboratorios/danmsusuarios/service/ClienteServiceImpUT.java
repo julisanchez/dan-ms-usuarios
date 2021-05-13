@@ -25,9 +25,6 @@ import isi.dan.laboratorios.danmsusuarios.domain.Pedido;
 import isi.dan.laboratorios.danmsusuarios.exception.RecursoNoEncontradoException;
 import isi.dan.laboratorios.danmsusuarios.exception.RiesgoException;
 import isi.dan.laboratorios.danmsusuarios.repository.ClienteRepository;
-import isi.dan.laboratorios.danmsusuarios.service.ClienteService;
-import isi.dan.laboratorios.danmsusuarios.service.PedidoService;
-import isi.dan.laboratorios.danmsusuarios.service.RiesgoService;
 
 @SpringBootTest
 public class ClienteServiceImpUT {

@@ -1,15 +1,28 @@
 package isi.dan.laboratorios.danmsusuarios.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Obra {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String descripcion;
     private Float latitud;
     private Float longitud;
     private String direccion;
     private Integer superficie;
-    private TipoObra tipo;
-    private Cliente cliente;
-
+    @ManyToOne
+    @JoinColumn(name = "TIPO_ID")
+    TipoObra tipo;
+    @ManyToOne
+    @JoinColumn(name = "CLIENTE_ID")
+    Cliente cliente;
 
     public Integer getId() {
         return this.id;

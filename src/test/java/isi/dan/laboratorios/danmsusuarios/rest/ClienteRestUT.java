@@ -23,7 +23,6 @@ import isi.dan.laboratorios.danmsusuarios.domain.TipoObra;
 import isi.dan.laboratorios.danmsusuarios.domain.Usuario;
 import isi.dan.laboratorios.danmsusuarios.exception.RecursoNoEncontradoException;
 import isi.dan.laboratorios.danmsusuarios.exception.RiesgoException;
-import isi.dan.laboratorios.danmsusuarios.rest.ClienteRest;
 import isi.dan.laboratorios.danmsusuarios.service.ClienteService;
 
 @SpringBootTest
