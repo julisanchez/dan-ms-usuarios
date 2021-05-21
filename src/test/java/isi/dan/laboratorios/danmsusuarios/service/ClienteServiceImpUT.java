@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +19,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Profile;
 
 import isi.dan.laboratorios.danmsusuarios.domain.Cliente;
 import isi.dan.laboratorios.danmsusuarios.domain.Pedido;
 import isi.dan.laboratorios.danmsusuarios.exception.RecursoNoEncontradoException;
 import isi.dan.laboratorios.danmsusuarios.exception.RiesgoException;
-import isi.dan.laboratorios.danmsusuarios.repository.ClienteRepository;
+import isi.dan.laboratorios.danmsusuarios.dao.ClienteRepository;
 
 @SpringBootTest
+@Profile("testing")
 public class ClienteServiceImpUT {
 
     @Autowired
@@ -59,7 +61,7 @@ public class ClienteServiceImpUT {
         c2.setRazonSocial("Cliente 02");
 
         Cliente c3 = new Cliente();
-        c3.setFechaBaja(new Date());
+        c3.setFechaBaja(LocalDateTime.now());
 
         clientes.add(c1);
         clientes.add(c2);
@@ -135,7 +137,7 @@ public class ClienteServiceImpUT {
 
     @Test
     void testBuscarPorId() throws RecursoNoEncontradoException {
-        when(clienteRepository.findById(34)).thenReturn(Optional.of(new Cliente()));
+        when(clienteRepository.findByIdAndFechaBajaIsNull(34)).thenReturn(Optional.of(new Cliente()));
 
         Cliente cliente = clienteService.buscarPorId(34);
         assertNotNull(cliente);
@@ -150,7 +152,7 @@ public class ClienteServiceImpUT {
 
     @Test
     void testActualizar() throws RecursoNoEncontradoException {
-        when(clienteRepository.findById(clienteActualizar.getId())).thenReturn(Optional.of(clienteActualizar));
+        when(clienteRepository.findByIdAndFechaBajaIsNull(clienteActualizar.getId())).thenReturn(Optional.of(clienteActualizar));
         when(clienteRepository.save(any(Cliente.class))).thenReturn(clienteActualizar);
         
         assertNotNull(clienteService.actualizar(clienteActualizar));

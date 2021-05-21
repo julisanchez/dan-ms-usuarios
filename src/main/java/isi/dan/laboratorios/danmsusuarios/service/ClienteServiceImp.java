@@ -1,7 +1,7 @@
 package isi.dan.laboratorios.danmsusuarios.service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import isi.dan.laboratorios.danmsusuarios.domain.Cliente;
 import isi.dan.laboratorios.danmsusuarios.exception.RecursoNoEncontradoException;
 import isi.dan.laboratorios.danmsusuarios.exception.RiesgoException;
-import isi.dan.laboratorios.danmsusuarios.repository.ClienteRepository;
+import isi.dan.laboratorios.danmsusuarios.dao.ClienteRepository;
 
 @Service
 public class ClienteServiceImp implements ClienteService {
@@ -46,7 +46,7 @@ public class ClienteServiceImp implements ClienteService {
             Cliente cliente = clienteRepository.findById(id).get();
 
             if (!pedidoService.pedidosDelCliente(cliente).isEmpty()) {
-                cliente.setFechaBaja(new Date());
+                cliente.setFechaBaja(LocalDateTime.now());
                 clienteRepository.save(cliente);
             } else {
                 clienteRepository.delete(cliente);
@@ -78,7 +78,7 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public Cliente buscarPorId(Integer id) throws RecursoNoEncontradoException {
-        Optional<Cliente> cliente = clienteRepository.findById(id).filter(c -> c.getFechaBaja() == null);
+        Optional<Cliente> cliente = clienteRepository.findByIdAndFechaBajaIsNull(id);
 
         if (cliente.isPresent())
             return cliente.get();
@@ -87,7 +87,7 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public Cliente actualizar(Cliente nuevo) throws RecursoNoEncontradoException {
-        Optional<Cliente> cliente = clienteRepository.findById(nuevo.getId());
+        Optional<Cliente> cliente = clienteRepository.findByIdAndFechaBajaIsNull(nuevo.getId());
 
         if (cliente.isPresent()) {
             return clienteRepository.save(nuevo);

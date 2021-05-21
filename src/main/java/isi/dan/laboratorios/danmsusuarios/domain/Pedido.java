@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -18,6 +19,7 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private Instant fechaPedido;
+	@ManyToOne
 	private Obra obra;
 	@OneToMany(mappedBy = "pedido")
 	private List<DetallePedido> detalle;
