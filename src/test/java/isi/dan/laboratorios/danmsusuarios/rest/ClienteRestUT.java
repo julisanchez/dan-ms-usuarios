@@ -32,6 +32,9 @@ public class ClienteRestUT {
     ClienteRest clienteRest;
 
     @MockBean
+    ObraRest obraRest;
+
+    @MockBean
     ClienteService clienteService;
 
     List<Cliente> clientes;
@@ -49,6 +52,8 @@ public class ClienteRestUT {
     Cliente clienteRiesgo;
 
     Cliente clienteActualizado;
+
+    Obra obraConCliente;
 
     @BeforeEach
     void setUp() {
@@ -89,16 +94,28 @@ public class ClienteRestUT {
         clienteActualizado = new Cliente();
 
         clientes = new ArrayList<>();
+
+        // Obra
+        obraConCliente = obra;
+        obraConCliente.setCliente(clienteValido);
     }
 
     @Test
     void todosTest() {
         when(clienteService.buscar(null, null)).thenReturn(clientes);
 
-        ResponseEntity<List<Cliente>> response = clienteRest.todos(null, null);
+        ResponseEntity<List<Cliente>> response = clienteRest.clientePor(null, null,null);
 
         assertEquals(200, response.getStatusCodeValue());
         assertEquals(clientes, response.getBody());
+    }
+
+    @Test
+    void clientePorObra(){
+        when(obraRest.obraPorId(1)).thenReturn(ResponseEntity.ok(obraConCliente));
+        ResponseEntity<List<Cliente>> response = clienteRest.clientePor(null, null, 1);
+
+        assertEquals(1, response.getBody().size());
     }
 
     @Test

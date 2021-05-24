@@ -42,8 +42,12 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     public void darBaja(Integer id) throws RecursoNoEncontradoException {
-        try {
-            Cliente cliente = clienteRepository.findById(id).get();
+        
+            Optional<Cliente> response = clienteRepository.findById(id);
+
+            if(response.isEmpty()) throw new RecursoNoEncontradoException();
+
+            Cliente cliente = response.get();
 
             if (!pedidoService.pedidosDelCliente(cliente).isEmpty()) {
                 cliente.setFechaBaja(LocalDateTime.now());
@@ -51,9 +55,7 @@ public class ClienteServiceImp implements ClienteService {
             } else {
                 clienteRepository.delete(cliente);
             }
-        } catch (Exception e) {
-            throw new RecursoNoEncontradoException();
-        }
+        
     }
 
     @Override
@@ -69,6 +71,7 @@ public class ClienteServiceImp implements ClienteService {
         if (cuit != null) {
             clientes.removeIf(cliente -> !cuit.equals(cliente.getCuit()));
         }
+
         if (razon != null) {
             clientes.removeIf(cliente -> !razon.equals(cliente.getRazonSocial()));
         }
