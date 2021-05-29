@@ -1,5 +1,6 @@
 package isi.dan.laboratorios.danmsusuarios.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,14 +11,14 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Obra {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String descripcion;
     private Float latitud;
     private Float longitud;
     private String direccion;
     private Integer superficie;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TIPO_ID")
     TipoObra tipo;
     @ManyToOne

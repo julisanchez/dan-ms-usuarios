@@ -6,9 +6,11 @@ import isi.dan.laboratorios.danmsusuarios.exception.RecursoNoEncontradoException
 import isi.dan.laboratorios.danmsusuarios.exception.RiesgoException;
 import isi.dan.laboratorios.danmsusuarios.service.ClienteService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,9 @@ public class ClienteRest {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private ObraRest obraRest;
+
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Busca un cliente por id")
     public ResponseEntity<Cliente> clientePorId(@PathVariable Integer id) {
@@ -48,9 +53,21 @@ public class ClienteRest {
     }
 
     @GetMapping
-    public ResponseEntity<List<Cliente>> todos(@RequestParam(required = false) String cuit,
-            @RequestParam(required = false) String razon) {
+    public ResponseEntity<List<Cliente>> clientePor(@RequestParam(required = false) String cuit,
+            @RequestParam(required = false) String razon, @RequestParam(required = false) Integer obraId) {
 
+        if(obraId != null) {
+            ResponseEntity<Obra> response = obraRest.obraPorId(obraId);
+
+            if(response.getStatusCode() == HttpStatus.OK){
+                ArrayList<Cliente> cliente = new ArrayList<Cliente>();
+
+                cliente.add(response.getBody().getCliente());
+
+                return ResponseEntity.ok(cliente);
+            }
+            return ResponseEntity.notFound().build();
+        } 
         return ResponseEntity.ok(clienteService.buscar(cuit, razon));
     }
 

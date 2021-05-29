@@ -1,8 +1,9 @@
 package isi.dan.laboratorios.danmsusuarios.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,17 +15,17 @@ import javax.persistence.OneToOne;
 @Entity
 public class Cliente {
    @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
-   @GeneratedValue(strategy = GenerationType.AUTO)
    private String razonSocial;
    private String cuit;
    private String mail;
    private Double maxCuentaCorriente;
    private Boolean habilitadoOnline;
-   private Date fechaBaja;
+   private LocalDateTime fechaBaja;
    @OneToMany(mappedBy = "cliente")
    private List<Obra> obras;
-   @OneToOne
+   @OneToOne(cascade = CascadeType.PERSIST)
    @JoinColumn(name = "USUARIO_ID")
    private Usuario usuario;
 
@@ -96,11 +97,11 @@ public class Cliente {
       this.usuario = usuario;
    }
 
-   public Date getFechaBaja() {
+   public LocalDateTime getFechaBaja() {
       return this.fechaBaja;
    }
 
-   public void setFechaBaja(Date fechaBaja) {
+   public void setFechaBaja(LocalDateTime fechaBaja) {
       this.fechaBaja = fechaBaja;
    }
 
