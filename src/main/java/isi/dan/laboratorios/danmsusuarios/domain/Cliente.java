@@ -3,6 +3,7 @@ package isi.dan.laboratorios.danmsusuarios.domain;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Cliente {
    private LocalDateTime fechaBaja;
    @OneToMany(mappedBy = "cliente")
    private List<Obra> obras;
-   @OneToOne
+   @OneToOne(cascade = CascadeType.PERSIST)
    @JoinColumn(name = "USUARIO_ID")
    private Usuario usuario;
 

@@ -1,13 +1,13 @@
 package isi.dan.laboratorios.danmsusuarios.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Usuario {
@@ -17,7 +17,7 @@ public class Usuario {
     @Column(unique = true)
     private String user;
     private String password;
-    @OneToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TIPO_USER_ID")
     private TipoUsuario tipoUsuario;
 
