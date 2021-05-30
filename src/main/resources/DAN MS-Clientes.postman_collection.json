@@ -1,0 +1,169 @@
+{
+	"info": {
+		"_postman_id": "ac765560-612f-4cf2-9b63-eef64b5669b4",
+		"name": "DAN MS-Clientes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Clientes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"cliente"
+					],
+					"query": [
+						{
+							"key": "cuit",
+							"value": "2099988871",
+							"disabled": true
+						},
+						{
+							"key": "razon",
+							"value": "Cliente%2001",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/cliente/{{idCliente}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"cliente",
+						"{{idCliente}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Cliente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"razonSocial\": \"Cliente 01\",\n    \"cuit\": \"2099988871\",\n    \"mail\": \"martin@mail.com\",\n    \"maxCuentaCorriente\": null,\n    \"habilitadoOnline\": null,\n    \"usuario\": {\n        \"user\": \"mdominguez\",\n        \"password\": \"123456\",\n        \"tipoUsuario\": {\n            \"id\": 1,\n            \"tipo\": \"CLIENTE\"\n        }\n    },\n    \"obras\": [\n        {\n            \"descripcion\": \"obra de prueba\",\n            \"tipo\": {\n                \"id\":1,\n                \"descripcion\": \"tipo\"\n            }\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/cliente",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"cliente"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Cliente",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"razonSocial\": \"Cliente 01\",\n    \"cuit\": \"5599988871\",\n    \"mail\": \"martin@mail.com\",\n    \"maxCuentaCorriente\": null,\n    \"habilitadoOnline\": null,\n    \"usuario\": {\n        \"user\": \"mdominguez\",\n        \"password\": \"123456\",\n        \"tipoUsuario\": {\n            \"id\": 1,\n            \"tipo\": \"CLIENTE\"\n        }\n    },\n    \"obras\": [\n        {\n            \"descripcion\": \"obra de prueba\",\n            \"tipo\": {\n                \"id\":1,\n                \"descripcion\": \"tipo\"\n            }\n        }\n    ]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9000/api/cliente/{{idCliente}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"cliente",
+						"{{idCliente}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/api/cliente/{{idCliente}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"api",
+						"cliente",
+						"{{idCliente}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "idCliente",
+			"value": "1"
+		}
+	]
+}
