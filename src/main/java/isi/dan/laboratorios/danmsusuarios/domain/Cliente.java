@@ -23,7 +23,7 @@ public class Cliente {
    private Double maxCuentaCorriente;
    private Boolean habilitadoOnline;
    private LocalDateTime fechaBaja;
-   @OneToMany(mappedBy = "cliente")
+   @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
    private List<Obra> obras;
    @OneToOne(cascade = CascadeType.PERSIST)
    @JoinColumn(name = "USUARIO_ID")

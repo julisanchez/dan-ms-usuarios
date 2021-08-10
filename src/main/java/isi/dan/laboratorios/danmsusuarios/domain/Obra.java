@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Obra {
@@ -18,7 +19,7 @@ public class Obra {
     private Float longitud;
     private String direccion;
     private Integer superficie;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+	@OneToOne
     @JoinColumn(name = "TIPO_ID")
     TipoObra tipo;
     @ManyToOne
