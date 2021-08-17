@@ -7,6 +7,7 @@ import java.util.OptionalInt;
 import java.util.stream.IntStream;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import io.swagger.annotations.ApiResponse;
 import isi.dan.laboratorios.danmsusuarios.domain.Empleado;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/empleado")
 @Api(value = "EmpleadoRest", description = "Permite gestionar los empleados de la empresa")
 public class EmpleadoRest {

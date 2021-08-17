@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import isi.dan.laboratorios.danmsusuarios.domain.Obra;
 import io.swagger.annotations.ApiResponse;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/api/obra")
 @Api(value = "ObraRest", description = "Permite gestionar las obras de la empresa")
 public class ObraRest {
