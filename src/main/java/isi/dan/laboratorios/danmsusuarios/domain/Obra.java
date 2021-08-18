@@ -19,7 +19,7 @@ public class Obra {
     private Float longitud;
     private String direccion;
     private Integer superficie;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TIPO_ID")
     TipoObra tipo;
     @ManyToOne
